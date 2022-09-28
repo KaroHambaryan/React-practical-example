@@ -15,7 +15,7 @@ function App() {
 		let person = users.find(elem => elem.id === id);
 		if (person) {
 			person.salary += 50000;
-		} 
+		}
 		setUsers([...users]);
 	}
 
@@ -29,21 +29,26 @@ function App() {
 
 
 
-const handleDelete = (id) => {
-	setUsers([...users.filter(elem => elem.id !== id)]);
-}
+	const handleDelete = (id) => {
+		setUsers([...users.filter(elem => elem.id !== id)]);
+	}
 
-return (
-	<div className="App">
-		<UserList
-			users={users}
-			onDelete={handleDelete}
-			onSalaryUp={handleSalaryUp}
-			onSalaryDown={handleSalaryDown}
-		/>
-		<AddUser />
-	</div>
-);
+	const handleNewUser = (obj) => {
+		setUsers([...users, { ...obj, id: Date.now()}])
+
+	}
+	console.log(Date.now());
+	return (
+		<div className="App">
+			<UserList
+				users={users}
+				onDelete={handleDelete}
+				onSalaryUp={handleSalaryUp}
+				onSalaryDown={handleSalaryDown}
+			/>
+			<AddUser onAdd={handleNewUser} />
+		</div>
+	);
 }
 
 export default App;
